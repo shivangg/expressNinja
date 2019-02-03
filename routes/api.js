@@ -26,10 +26,14 @@ router.put('/ninjas/:id', (req, res, next) => {
 });
 
 // delete a ninja from db
-router.delete('/ninjas', (req, res, next) => {
-  res.send({
-    type: 'DELETE'
-  });
+router.delete('/ninjas/:id', (req, res, next) => {
+  Ninja.findByIdAndRemove({_id: req.params.id })
+    .then( (ninja) => {
+      res.send({
+        ninja: ninja,
+        type: 'DELETE'
+      });
+    } )
 });
 
 module.exports = router;
